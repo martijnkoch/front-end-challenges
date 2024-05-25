@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | FAQ accordion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      * {
+        font-family: "Work Sans", sans-serif;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-[url('/assets/images/background-pattern-desktop.svg')] bg-[#f9eeff] bg-top bg-no-repeat h-screen bg-auto md:bg-contain w-full"
+  >
+    <div class="px-4 pt-72 md:pt-36">
+      <div
+        class="flex flex-col m-auto md:w-[600px] rounded-3xl bg-white px-10 py-14"
+      >
+        <h1
+          class="before:content-[url('assets/images/icon-star.svg')] before:mr-4 flex items-center text-3xl md:text-6xl font-bold text-[#260f29]"
+        >
+          FAQs
+        </h1>
+        <div x-data="faqComponent()" class="mt-6">
+          <template x-if="loading">
+            <p>Loading...</p>
+          </template>
+          <template x-if="!loading">
+            <template x-for="(item, index) in faq" :key="index">
+              <div
+                class="[&:not(:last-child)]:border-b-2 border-[#f1eaff] py-5"
+              >
+                <div
+                  class="flex items-center justify-between cursor-pointer"
+                  @click="faq_selected !== index ? faq_selected = index : faq_selected = null"
+                >
+                  <h4
+                    x-text="item.question"
+                    class="text-lg text-[#260f29] font-bold hover:text-[#d155ff] max-w-60 md:max-w-full"
+                  ></h4>
+                  <img
+                    :src="faq_selected === index ? 'assets/images/icon-minus.svg' : 'assets/images/icon-plus.svg'"
+                    alt="Toggle Icon"
+                  />
+                </div>
+                <div
+                  class="relative overflow-hidden transition-all max-h-0 duration-700"
+                  x-bind:style="faq_selected === index ? `max-height: ${ $el.scrollHeight }px` : ``"
+                >
+                  <template
+                    x-for="(ans, ansIndex) in item.answer"
+                    :key="ansIndex"
+                  >
+                    <p x-text="ans" class="text-[#8c6991] mt-5"></p>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function faqComponent() {
+        return {
+          faq: [],
+          faq_selected: null,
+          loading: true,
+          init() {
+            fetch("./faq.json")
+              .then((response) => response.json())
+              .then((data) => {
+                this.faq = data;
+                this.loading = false;
+              })
+              .catch((error) => console.error("Error loading FAQ:", error));
+          },
+        };
+      }
+    </script>
+  </body>
+</html>
