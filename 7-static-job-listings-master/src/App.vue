@@ -43,7 +43,7 @@
       </div>
       <div class="flex gap-4 items-center md:justify-end mt-2 pt-4 border-t md:border-0">
         <p
-          v-for="item in [...job.tools, ...job.languages]"
+          v-for="item in [job.role, job.level, ...job.languages, ...job.tools]"
           :key="item"
           class="flex items-center text-desaturated-dark-cyan hover:text-white font-bold bg-light-grayish-cyan hover:bg-desaturated-dark-cyan h-8 px-3 rounded-md cursor-pointer"
           @click="addFilter(item)"
@@ -86,8 +86,12 @@ const filteredJobs = computed(() => {
   }
   return jobs.filter((job) =>
     searchItems.value.every((filter) =>
-      job.tools.includes(filter) || job.languages.includes(filter)
+      job.role === filter ||
+      job.level === filter ||
+      job.tools.includes(filter) ||
+      job.languages.includes(filter)
     )
   );
 });
 </script>
+
