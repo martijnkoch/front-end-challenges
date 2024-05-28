@@ -4,7 +4,7 @@
     class="h-40 bg-desaturated-dark-cyan w-full"
   />
 
-  <div v-if="searchItems.length" class="container mx-auto flex items-center bg-white px-10 py-4 -mt-8 z-10 relative rounded-md gap-4 md:gap-4 flex-wrap">
+  <div v-if="searchItems.length" class="container mx-auto flex items-center bg-white px-10 py-4 -mt-8 z-10 relative rounded-md gap-4 md:gap-4 flex-wrap shadow-md">
     <div v-for="item in searchItems" :key="item" class="flex items-center">
       <p class="h-8 bg-light-grayish-cyan flex items-center px-3 gap-2 rounded-l-md text-desaturated-dark-cyan font-bold">{{ item }}</p>
       <div class="bg-desaturated-dark-cyan hover:bg-very-dark-grayish-cyan h-8 w-8 flex items-center justify-center rounded-r-md cursor-pointer" @click="removeFilter(item)">
@@ -19,7 +19,7 @@
       v-for="job in filteredJobs"
       :key="job.id"
       :class="{ 'border-l-4 border-desaturated-dark-cyan': job.featured }"
-      class="grid md:grid-cols-2 p-4 md:p-10 bg-white rounded-lg"
+      class="grid md:grid-cols-2 p-4 md:p-10 bg-white rounded-lg shadow-md"
     >
       <div class="flex flex-col md:flex-row gap-4">
         <img :src="getLogoPath(job.logo)" :alt="job.company" class="h-12 md:h-auto object-contain mr-auto md:mr-0 -mt-8" />
