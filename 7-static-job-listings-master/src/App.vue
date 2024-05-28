@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="flex gap-4 items-center md:justify-end mt-2 pt-4 border-t md:border-0">
+      <div class="flex flex-wrap gap-4 items-center md:justify-end mt-2 pt-4 border-t md:border-0">
         <p
           v-for="item in [job.role, job.level, ...job.languages, ...job.tools]"
           :key="item"
